@@ -1,0 +1,31 @@
+name: flyer_chat
+description: A new Flutter project.
+version: 0.0.1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  mime: ^1.0.1
+  uuid: ^3.0.5
+  intl: ^0.17.0
+  open_file: ^3.2.1
+  file_picker: ^4.2.3
+  image_picker: ^0.8.4+4
+  cupertino_icons: ^1.0.4
+  flutter_chat_ui: ^1.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.4
+
+flutter:
+
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg

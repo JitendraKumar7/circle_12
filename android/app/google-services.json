@@ -1,0 +1,72 @@
+{
+  "project_info": {
+    "project_number": "1058512772499",
+    "firebase_url": "https://konnect-my-circle-app-default-rtdb.firebaseio.com",
+    "project_id": "konnect-my-circle-app",
+    "storage_bucket": "konnect-my-circle-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058512772499:android:225000f3a55edc63425c66",
+        "android_client_info": {
+          "package_name": "com.konnect.my.circle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058512772499-bkt2j75hkad613qqd39b68ncup278hrs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.konnect.my.circle",
+            "certificate_hash": "30f9a10373fb0dc5a1ab15d1c260a4ed1b6cf863"
+          }
+        },
+        {
+          "client_id": "1058512772499-emke1thpeiqkua56dhedv5jl1o4pj6dh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.konnect.my.circle",
+            "certificate_hash": "3dbc513a6201a4c378384092a85608fe7ce261e7"
+          }
+        },
+        {
+          "client_id": "1058512772499-ht0f7jnunuuvp9l273lugrdnkb6dkmrb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.konnect.my.circle",
+            "certificate_hash": "e436b948ebf37cd0ef2d7c829dc816b4d65c4a23"
+          }
+        },
+        {
+          "client_id": "1058512772499-9htamco5mnc8mn0dk5q4hbloihar7de0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZh4BBxwmdUsvOeBK94--djjr2W-126s4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058512772499-9htamco5mnc8mn0dk5q4hbloihar7de0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1058512772499-rcifsoi2q1fkbv6hbv7ufvfdnqt5vu1q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.circleApp",
+                "app_store_id": "1563459732"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

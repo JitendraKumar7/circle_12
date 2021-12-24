@@ -26,7 +26,7 @@ class _AddBroadcastState extends State<AddBroadcast> {
 
     print('${profile.name}');
     return Scaffold(
-      appBar: AppBar(title: Text('Add Broadcast')),
+      appBar: AppBar(title: Text('Add Broadcast'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
         ImagePickerWidget(
           photo: modal.photo,

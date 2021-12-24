@@ -11,5 +11,7 @@ showCenterLoader(BuildContext context, [int? seconds]) {
       child: CupertinoActivityIndicator(),
     ),
   );
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  ScaffoldMessenger.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(snackBar);
 }

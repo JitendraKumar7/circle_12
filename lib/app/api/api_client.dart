@@ -1,26 +1,6 @@
 import 'package:circle/modal/modal.dart';
 import 'package:http/http.dart' as http;
 
-Future<http.Response> sendWhatsAppMessage(String? phoneNumber, String message) {
-  var phone = phoneNumber?.replaceAll('+', '');
-  var url = 'https://messageapi.in/MessagingAPI/sendMessage.php?'
-      'LoginId=9717080648&password=qwerty12&mobile_number=$phone&message=$message';
-  return http.get(Uri.parse(url));
-}
-
-// https://messageapi.in/MessagingAPI/sendMessage.php?LoginId=9717080648&password=qwerty12&mobile_number=919654431845&message=Hii
-
-// offer view single list and circle
-//
-// forgot password
-//
-// add member or add circle multi use..
-//
-// whats app template...
-//
-// business category
-//
-// offer and notification counter....
 
 Future<void> sentOtp(ProfileModal profile, otp) async {
   var uri = Uri.parse('http://sms.sunstechit.com/app/smsapi/index.php');
@@ -65,4 +45,40 @@ Future<void> sentOtp(ProfileModal profile, otp) async {
     var _response = await http.get(Uri.parse(url));
     print({'international : ${_response.body}'});
   }
+}
+
+Future<void> sentMessage(ContactModal contact, String message) async {
+  var uri = Uri.parse('http://sms.sunstechit.com/app/smsapi/index.php');
+
+  if (contact.countryCode == '+91') {
+    var body = <String, String>{
+      'template_id': '1207161718630433560',
+      'key': '55E19BF769A898',
+      'campaign': '0',
+      'routeid': '13',
+      'type': 'text',
+      'senderid': 'KMCOTP',
+      'contacts': '${contact.phoneNumber}',
+      'msg': message,
+    };
+    var _response = await http.post(uri, body: body);
+    print({'body : $body', '_response : ${_response.body}'});
+  }
+  // international
+  else {
+    var url = 'https://api.authkey.io/request?authkey=274fe0c2c29ec224'
+        '&country_code=${contact.countryCode?.replaceAll('+', '')}'
+        '&mobile=${contact.phoneNumber}&sender=KMCOTP'
+        '&sms=$message';
+
+    var _response = await http.get(Uri.parse(url));
+    print({'international : ${_response.body}'});
+  }
+}
+
+Future<http.Response> sendWhatsAppMessage(String? phoneNumber, String message) {
+  var phone = phoneNumber?.replaceAll('+', '');
+  var url = 'https://messageapi.in/MessagingAPI/sendMessage.php?'
+      'LoginId=9717080648&password=qwerty12&mobile_number=$phone&message=$message';
+  return http.get(Uri.parse(url));
 }

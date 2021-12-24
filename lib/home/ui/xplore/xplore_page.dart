@@ -2,9 +2,7 @@ import 'package:circle/app/app.dart';
 import 'package:circle/home/index.dart';
 import 'package:circle/modal/modal.dart';
 import 'package:circle/widget/widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XplorePage extends StatefulWidget {
   @override
@@ -14,11 +12,6 @@ class XplorePage extends StatefulWidget {
 class _XploreState extends State<XplorePage> {
   var db = FirestoreService();
   late ProfileModal profile;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,19 +70,14 @@ class _XploreState extends State<XplorePage> {
   }
 
   Future<List<QueryDocumentSnapshot<CircleModal>>> getCircleList() async {
-    var _circles = await db.circle
-        .where('type', isEqualTo: 'Social')
-        //.where('createdBy', isNotEqualTo: profile.id)
-        .get();
-    /*
-    List<QueryDocumentSnapshot<CircleModal>> items = [];
-    await Future.forEach(_circles.docs,
-        (QueryDocumentSnapshot<CircleModal> doc) async {
+    var _circles = await db.circle.where('type', isEqualTo: 'Social').get();
+
+    _circles.docs.forEach((doc) {
       var data = doc.data();
-      var members = data.members.any((e) => e == profile.phoneNumber);
-      var request = data.request.any((e) => e == profile.id);
-      if (!members && !request) items.add(doc);
-    });*/
+      if (data.references.isEmpty || data.members.isEmpty) {
+        doc.reference.delete();
+      }
+    });
 
     return _circles.docs.where((doc) {
       var data = doc.data();

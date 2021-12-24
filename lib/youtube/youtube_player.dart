@@ -43,7 +43,7 @@ class VideoPlayer extends StatelessWidget {
     return DefaultTabController(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Player'),
+          title: Text('Player'.toUpperCase()),
           bottom: TabBar(tabs: [
             Tab(
                 child: Text(

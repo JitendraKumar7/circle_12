@@ -1,9 +1,7 @@
 import 'package:circle/app/app.dart';
 import 'package:circle/business/profile.dart';
-import 'package:circle/home/index.dart';
 import 'package:circle/modal/modal.dart';
 import 'package:circle/widget/widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatefulWidget {

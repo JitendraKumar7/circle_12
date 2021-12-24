@@ -27,7 +27,7 @@ class _LinksPageState extends State<LinksPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Links')),
+      appBar: AppBar(title: Text('Links'.toUpperCase())),
       body: Column(children: [
         Container(
           padding: EdgeInsets.only(

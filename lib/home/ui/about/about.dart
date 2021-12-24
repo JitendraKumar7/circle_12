@@ -13,7 +13,7 @@ class AboutPage extends StatelessWidget {
       children: [
         TextButton.icon(
           onPressed: () => Navigator.pushNamed(context, PLAYER),
-          label: Text('Play Video'),
+          label: Text('Play Video'.toUpperCase()),
           icon: FaIcon(
             FontAwesomeIcons.youtube,
             color: Color(0xFFE60023),

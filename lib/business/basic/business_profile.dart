@@ -27,7 +27,7 @@ class _BusinessInfoState extends State<BusinessInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Basic Info')),
+      appBar: AppBar(title: Text('Profile'.toUpperCase())),
       body: ListView(children: [
         ImagePickerWidget(
           upload: Upload.BANNER,

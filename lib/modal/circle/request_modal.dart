@@ -1,12 +1,14 @@
 import 'package:circle/modal/modal.dart';
 
 class CircleRequestModal {
-  DocumentReference<CircleModal> reference;
+  QueryDocumentSnapshot<CircleModal> snapshot;
   ContactModal contact;
   CircleModal circle;
 
+  DocumentReference<CircleModal> get reference => snapshot.reference;
+
   CircleRequestModal({
-    required this.reference,
+    required this.snapshot,
     required this.contact,
     required this.circle,
   });

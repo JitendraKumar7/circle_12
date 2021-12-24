@@ -6,9 +6,7 @@ import 'package:circle/home/bloc/home_bloc.dart';
 import 'package:circle/home/index.dart';
 import 'package:circle/modal/modal.dart';
 import 'package:circle/widget/widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share/share.dart';
 
 class HomePage extends StatefulWidget {
@@ -134,16 +132,41 @@ class _HomeState extends State<HomePage> with BannerAdState {
           .snapshots(),
       builder: (QuerySnapshot<CircleModal>? snapshot) {
         var data = snapshot?.docs ?? [];
+        data.sort((a, b) => b.data().timestamp.compareTo(a.data().timestamp));
         return data.isEmpty
             ? SliderBuilder()
             : StatefulBuilder(builder: (_, setState) {
                 return ListView(children: [
-                  //getAdWidget(),
-                  ...data
-                      .map((item) =>
-                          CircleView(item, _profile, (bool isAdmin) {}))
-                      .toList(),
                   getBanner(),
+                  ...data
+                      .map((item) => CircleView(item, _profile, (bool isAdmin) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  content: Text('Are you sure want to delete?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        item.reference.delete();
+                                        setState(() => print('Delete circle'));
+                                      },
+                                      child: Text('Delete'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }))
+                      .toList(),
                 ]);
               });
       },
@@ -202,7 +225,7 @@ class CircleView extends StatelessWidget {
         arguments: snapshot,
       ),
       onLongPress: () => delete(isAdmin),
-      onDoubleTap: () => delete(isAdmin),
+      //onDoubleTap: () => delete(isAdmin),
       child: Card(
         elevation: 6,
         color: Colors.white,
@@ -470,7 +493,7 @@ class CircleView extends StatelessWidget {
                             arguments: snapshot.data(),
                           );
                           //if (_result != null) setState(() => print('load'));
-                          //print('_result $_result');
+                          print('_result $_result');
                         }
                       : null,
                   icon: Icon(

@@ -1,9 +1,7 @@
 import 'package:circle/app/app.dart';
 import 'package:circle/modal/modal.dart';
 import 'package:circle/widget/widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 _showSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context)

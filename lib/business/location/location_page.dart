@@ -61,7 +61,7 @@ class _LocationPageState extends State<LocationPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(title: Text('Location')),
+      appBar: AppBar(title: Text('Location'.toUpperCase())),
       body: _latLng == null
           ? Center(child: CupertinoActivityIndicator())
           : Stack(children: [

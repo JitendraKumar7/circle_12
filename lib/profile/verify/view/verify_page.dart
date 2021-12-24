@@ -1,7 +1,6 @@
 import 'package:circle/modal/modal.dart';
 import 'package:circle/profile/verify/verify.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class VerifyPage extends StatelessWidget {
 

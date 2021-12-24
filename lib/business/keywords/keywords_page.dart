@@ -25,7 +25,7 @@ class _KeywordsState extends State<KeywordsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Keywords')),
+      appBar: AppBar(title: Text('Keywords'.toUpperCase())),
       body: Column(children: [
         if (3 > keywords.length) ...[
           EditTextForm(

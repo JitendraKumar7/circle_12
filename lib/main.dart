@@ -1,11 +1,9 @@
 import 'package:authentication_repository/authentication_repository.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:circle/app/app.dart';
 
-import 'google_mobile_ads/ex/mobile_ads.dart';
 import 'modal/modal.dart';
 
 //  successfully login
@@ -31,17 +29,6 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
   MobileAds.instance.initialize();
   await Firebase.initializeApp();
-
-  /*
-  var deviceInfo = DeviceInfoPlugin();
-  var androidDeviceInfo = await deviceInfo.androidInfo;
-  print('androidId ${androidDeviceInfo.androidId}');
-
-  var configuration = RequestConfiguration(testDeviceIds: [
-    androidDeviceInfo.androidId??'',
-  ]);
-  MobileAds.instance.updateRequestConfiguration(configuration);
-  */
 
   // --------------------print(Firebase.app().options);
   // https://play.googleapis.com/play/log/timestamp
@@ -82,13 +69,6 @@ Future<void> main() async {
   // offer view and comment
 
   final auth = await AuthenticationRepository();
-  /*runApp(ChangeNotifierProvider<ProfileModal>(
-    create: (_)  => ProfileModal(),
-    child: App(repository: auth),
-  ));*/
-
-  //runApp(MyApp());
-  //return;
 
   runApp(MultiProvider(child: App(repository: auth), providers: [
     ChangeNotifierProvider<ProfileModal>(create: (_) => ProfileModal()),

@@ -29,7 +29,7 @@ class _BanksPageState extends State<BanksPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Our Bankers')),
+      appBar: AppBar(title: Text('Our Bankers'.toUpperCase())),
       body: ListView(children: [
         EditTextForm(
           'Bank Name',

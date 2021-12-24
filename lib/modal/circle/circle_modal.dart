@@ -109,6 +109,6 @@ class CircleModal extends BaseModal {
   };
 
   bool canAddMember(String userId) {
-   return isAddMember || createdBy == userId;
+    return isAddMember || createdBy == userId;
   }
 }

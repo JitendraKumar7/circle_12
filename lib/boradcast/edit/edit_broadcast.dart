@@ -27,7 +27,7 @@ class _EditBroadcastState extends State<EditBroadcast> {
     var profile = context.read<ProfileModal>();
 
     return Scaffold(
-      appBar: AppBar(title: Text('Edit Broadcast')),
+      appBar: AppBar(title: Text('Edit Broadcast'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
         ImagePickerWidget(
           photo: modal.photo,

@@ -28,7 +28,7 @@ class _CataloguePageState extends State<CataloguePage> {
   Widget build(BuildContext context) {
     var profile = context.read<ProfileModal>();
     return Scaffold(
-      appBar: AppBar(title: Text('Catalogue')),
+      appBar: AppBar(title: Text('Catalogue'.toUpperCase())),
       body: Column(children: [
         Expanded(
             child: GridView(

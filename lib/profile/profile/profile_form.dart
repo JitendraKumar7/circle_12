@@ -5,7 +5,6 @@ import 'package:circle/profile/profile.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileForm extends StatelessWidget {
   const ProfileForm({Key? key}) : super(key: key);

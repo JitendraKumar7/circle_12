@@ -13,7 +13,7 @@ class SearchPage extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(title: Text('Search')),
+      appBar: AppBar(title: Text('Search'.toUpperCase())),
       body: FutureWidgetBuilder(
           future: getProfileModal(context, profile.id),
           builder: (List<ProfileModal>? data) {

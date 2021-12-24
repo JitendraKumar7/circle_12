@@ -9,7 +9,7 @@ class ListOfferPage extends StatelessWidget {
     var args = ModalRoute.of(context)?.settings.arguments;
     var offers = args as QuerySnapshot<OfferModal>;
     return Scaffold(
-      appBar: AppBar(title: Text('List Offer')),
+      appBar: AppBar(title: Text('List Offer'.toUpperCase())),
       body: OfferListView(offers.docs),
     );
   }

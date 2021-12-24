@@ -30,7 +30,7 @@ class ChooseCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Circle')),
+      appBar: AppBar(title: Text('SELECT ANY CIRCLE')),
       body: FutureWidgetBuilder(
           future: getProfileModal(context),
           builder: (List<QueryDocumentSnapshot<CircleModal>>? data) {

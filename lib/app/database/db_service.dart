@@ -82,8 +82,13 @@ class FirestoreService {
     var circle = snapshot.data();
     var admin = await profile.doc(circle.createdBy).get();
 
-    //\\https://konnectmycircle.com
     var message = 'Hey congrats !\n\n'
+        '${admin.get('name')?.toUpperCase()} has added your mobile no. ${contact.phone} in a business circle ${circle.name?.toUpperCase()} https://konnectmycircle.com';
+
+    api.sentMessage(contact, message);
+
+    //\\https://konnectmycircle.com
+    message = 'Hey congrats !\n\n'
         '${admin.get('name')?.toUpperCase()} has added your mobile no. ${contact.phone} in a business circle ${circle.name?.toUpperCase()} to promote your business among his friends and family.'
         '\n\nlogin now in circle app with same mobile number to view multiple business in many other circles .'
         '\n\nhttps://konnectmycircle.com?circle=${snapshot.id}';

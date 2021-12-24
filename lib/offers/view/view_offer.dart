@@ -32,7 +32,7 @@ class _ViewOfferState extends State<ViewOfferPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('OfferView')),
+      appBar: AppBar(title: Text('OfferView'.toUpperCase())),
       body: Column(children: [
         Expanded(
           child: ListView(children: [

@@ -3,7 +3,6 @@ import 'package:circle/constant/constant.dart';
 import 'package:circle/home/index.dart';
 import 'package:circle/modal/modal.dart';
 import 'package:circle/widget/widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/flutter_chat.dart';
 import 'package:share/share.dart';
@@ -108,7 +107,8 @@ class _ViewCircleState extends State<ViewCirclePage> {
           bottom: TabBar(tabs: tabs, isScrollable: true),
           actions: [
             IconButton(
-                onPressed: () => Navigator.push(context, BroadcastPage.page(snapshot)),
+                onPressed: () =>
+                    Navigator.push(context, BroadcastPage.page(snapshot)),
                 icon: Icon(Icons.message))
           ],
         ),
@@ -171,12 +171,12 @@ class _ViewCircleState extends State<ViewCirclePage> {
   }
 
   Widget getBuilder(String type) {
+    int currentPages = 0;
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
       var contacts = list.where((e) => e.isType(type)).toList();
 
       int pages = (contacts.length / 10).ceil();
-      int currentPages = 0;
 
       return contacts.isEmpty
           ? Center(
@@ -198,15 +198,14 @@ class _ViewCircleState extends State<ViewCirclePage> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 IconButton(
                   onPressed: () => setState(() {
-                    if (currentPages > 0) currentPages = currentPages - 1;
+                    if (currentPages > 0) currentPages -= 1;
                   }),
                   icon: Icon(Icons.arrow_back_ios),
                 ),
-                Text('$pages Pages'),
+                Text('${currentPages + 1}/$pages Pages'),
                 IconButton(
                   onPressed: () => setState(() {
-                    if (pages > currentPages + 1)
-                      currentPages = currentPages + 1;
+                    if (pages > currentPages + 1) currentPages += 1;
                   }),
                   icon: Icon(Icons.arrow_forward_ios),
                 ),

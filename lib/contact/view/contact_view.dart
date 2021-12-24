@@ -19,7 +19,7 @@ class _ViewContactState extends State<ViewContactPage> {
     var args = ModalRoute.of(context)?.settings.arguments;
     _modal = args as ContactModal;
     return Scaffold(
-      appBar: AppBar(title: Text('View Contact')),
+      appBar: AppBar(title: Text('View Contact'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
         TextFormField(
           keyboardType: TextInputType.name,

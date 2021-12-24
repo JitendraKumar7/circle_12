@@ -97,7 +97,7 @@ mixin BannerAdState<T extends StatefulWidget> on State<T> {
 
   Widget getBanner() {
     var bannerAd = BannerAd(
-        size: AdSize.largeBanner,
+        size: AdSize.banner,
         adUnitId: kDebugMode
             ? BannerAd.testAdUnitId
             : 'ca-app-pub-5873006816499362/6188477209',
@@ -111,11 +111,14 @@ mixin BannerAdState<T extends StatefulWidget> on State<T> {
             ad.dispose();
           },
           onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
-          onAdClosed: (Ad ad) => print('$BannerAd onAdClosed.'),
+          onAdClosed: (Ad ad) {
+            print('$BannerAd onAdClosed.');
+            ad.dispose();
+          },
         ),
         request: AdRequest());
     bannerAd.load();
-    return _bannerAdIsLoaded
+    return _bannerAdIsLoaded && mounted
         ? Container(
             height: bannerAd.size.height.toDouble(),
             width: bannerAd.size.width.toDouble(),

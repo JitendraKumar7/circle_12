@@ -1,10 +1,18 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:circle/app/app.dart';
 import 'package:circle/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:circle/modal/modal.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_contact_picker/easy_contact_picker.dart';
+import 'package:share/share.dart';
+
+import '../contact.dart';
 
 _showSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context)
@@ -55,9 +63,11 @@ class _AddContactState extends State<AddContactPage> {
   @override
   Widget build(BuildContext context) {
     var profile = context.read<ProfileModal>();
+    bool _condition =
+        _circle.isAdminApproval && profile.id != _circle.createdBy;
     _modal.reference = profile.id;
     return Scaffold(
-      appBar: AppBar(title: Text('Add Contact')),
+      appBar: AppBar(title: Text('Add Contact'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
         TextFormField(
           keyboardType: TextInputType.name,
@@ -130,7 +140,8 @@ class _AddContactState extends State<AddContactPage> {
 
         // submit and save button
         Padding(
-          padding: const EdgeInsets.only(left: 80, right: 80, top: 24),
+          padding:
+              const EdgeInsets.only(left: 80, right: 80, top: 24, bottom: 24),
           child: ElevatedButton(
             onPressed: () async {
               if (_modal.name?.isEmpty ?? true) {
@@ -154,9 +165,6 @@ class _AddContactState extends State<AddContactPage> {
               }
 
               var db = FirestoreService();
-
-              bool _condition =
-                  _circle.isAdminApproval && profile.id != _circle.createdBy;
 
               var reference = _condition
                   ? db.request(snapshot.reference)
@@ -190,14 +198,67 @@ class _AddContactState extends State<AddContactPage> {
             },
             child: Container(
               alignment: Alignment.center,
-              height: 50,
+              height: 40,
               child: Text(
                 'SUBMIT',
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 15),
               ),
             ),
           ),
         ),
+
+        // submit and save button
+        if (!_condition) ...[
+          Container(
+            padding: EdgeInsets.all(8),
+            alignment: Alignment.center,
+            child: Text('To add in bulk upload excel'),
+          ),
+          TextButton(
+            onPressed: () {
+              var route = MaterialPageRoute(
+                builder: (_) => UploadContactPage(),
+                settings: ModalRoute.of(context)?.settings,
+              );
+              Navigator.pushReplacement(context, route);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 40,
+              child: Text(
+                'UPLOAD',
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              await Permission.storage.request();
+              final ByteData bytes =
+                  await rootBundle.load('assets/circle_contact_format.xlsx');
+              final Uint8List list = bytes.buffer.asUint8List();
+
+              final tempDir = await getTemporaryDirectory();
+              final file =
+                  await  File('${tempDir.path}/circle_contact_format.xlsx')
+                      .create();
+              file.writeAsBytesSync(list);
+
+              Share.shareFiles(
+                [file.path],
+                text: 'circle contact format',
+              );
+            },
+            child: Container(
+              alignment: Alignment.center,
+              height: 30,
+              child: Text(
+                'SHARE FORMAT',
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
+          ),
+        ]
       ]),
     );
   }

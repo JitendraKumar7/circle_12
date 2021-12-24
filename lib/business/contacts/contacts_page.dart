@@ -28,7 +28,7 @@ class _ContactsState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Contacts')),
+      appBar: AppBar(title: Text('Contacts'.toUpperCase())),
       body: Column(children: [
         if (3 > businessContacts.length) ...[
           CountryCodePicker(

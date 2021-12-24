@@ -30,7 +30,7 @@ class _EditOfferState extends State<EditOfferPage> {
 
     var photo = _modal.photo;
     return Scaffold(
-      appBar: AppBar(title: Text('Edit Offers')),
+      appBar: AppBar(title: Text('Edit Offers'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
         ImagePickerWidget(
           photo:_modal.photo,

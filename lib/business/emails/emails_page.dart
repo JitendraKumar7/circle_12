@@ -25,7 +25,7 @@ class _EmailsState extends State<EmailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Emails')),
+      appBar: AppBar(title: Text('Emails'.toUpperCase())),
       body: Column(children: [
         if (3 > businessEmails.length) ...[
           EditTextForm(

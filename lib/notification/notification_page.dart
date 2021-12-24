@@ -71,11 +71,14 @@ class _NotificationState extends State<NotificationPage> {
           StreamBuilder(
               stream: db.notifications
                   .where('viewerId', isEqualTo: _profile.id)
+                  //.orderBy('timestamp')
                   .snapshots(),
               builder:
                   (_, AsyncSnapshot<QuerySnapshot<Notifications>> snapshot) {
-                var data =
-                    snapshot.data?.docs.map((e) => e.data()).toList() ?? [];
+                var list = snapshot.data?.docs ?? [];
+                var data = list.map((e) => e.data()).toList();
+                data.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+
                 return data.isEmpty
                     ? Image.asset(
                         'assets/empty/notification.jpg',
@@ -93,9 +96,12 @@ class _NotificationState extends State<NotificationPage> {
                         fit: BoxFit.fitWidth,
                         width: _size.width,
                       )
-                    : ListView(
-                        padding: EdgeInsets.all(24),
-                        children: data!.map(requestView).toList(),
+                    : ListView.separated(
+                        padding: EdgeInsets.only(top: 24, bottom: 24),
+                        itemCount: data?.length ?? 0,
+                        itemBuilder: (_, int i) => requestView(data![i]),
+                        separatorBuilder: (_, __) => Divider(),
+                        //children: data!.reversed.map(requestView).toList(),
                       );
               }),
         ]),
@@ -106,15 +112,15 @@ class _NotificationState extends State<NotificationPage> {
 
   Widget requestView(CircleRequestModal e) {
     var profile = e.circle.profile;
-    return Row(children: [
-      CircleAvatar(
+    return ListTile(
+      leading: CircleAvatar(
         backgroundImage: (profile != null
             ? NetworkImage(profile)
             : AssetImage(
                 'assets/default/business.jpg',
               )) as ImageProvider,
       ),
-      Column(
+      title: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -132,12 +138,15 @@ class _NotificationState extends State<NotificationPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Row(children: [
-              Expanded(
-                child: Text(
-                  '${e.contact.phone}',
-                  style: TextStyle(fontSize: 15),
-                ),
+          ]),
+      subtitle: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text(
+                '${e.contact.phone}',
+                style: TextStyle(fontSize: 15),
               ),
               Text(
                 '${e.contact.type}',
@@ -158,12 +167,10 @@ class _NotificationState extends State<NotificationPage> {
                       .doc(e.contact.phoneNumber)
                       .set(e.contact);
 
-                  /*db.sendNotifications(
-                        contact: e.contact,
-                        circle: e.circle.name,
-                        senderId: _profile.id,
-                        reference: e.reference,
-                      );*/
+                  db.sendNotifications(
+                    contact: e.contact,
+                    snapshot: e.snapshot,
+                  );
 
                   var _circle = e.circle;
                   _circle.members.add(e.contact.phoneNumber ?? '');
@@ -186,12 +193,8 @@ class _NotificationState extends State<NotificationPage> {
                 child: Text('Reject'),
               ),
             ]),
-            Padding(
-              padding: const EdgeInsets.only(left: 54),
-              child: Divider(thickness: 1),
-            ),
           ]),
-    ]);
+    );
   }
 
   Widget loadNotifications(Notifications notification) {
@@ -263,9 +266,9 @@ class _NotificationState extends State<NotificationPage> {
       await Future.forEach(requests.docs,
           (QueryDocumentSnapshot<ContactModal> member) async {
         var requestModal = CircleRequestModal(
-          reference: circle.reference,
           contact: member.data(),
           circle: circle.data(),
+          snapshot: circle,
         );
 
         request.add(requestModal);

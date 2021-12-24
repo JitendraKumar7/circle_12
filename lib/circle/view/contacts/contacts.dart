@@ -2,7 +2,6 @@ import 'package:circle/app/app.dart';
 import 'package:circle/constant/constant.dart';
 import 'package:circle/home/index.dart';
 import 'package:circle/modal/modal.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/flutter_chat.dart';
 import 'package:share/share.dart';
@@ -59,14 +58,14 @@ class _ContactsState extends State<ContactsPage> {
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               IconButton(
                 onPressed: () => setState(() {
-                  if (currentPages > 0) currentPages = currentPages - 1;
+                  if (currentPages > 0) currentPages -= 1;
                 }),
                 icon: Icon(Icons.arrow_back_ios),
               ),
-              Text('$pages Pages'),
+              Text('$currentPages/$pages Pages'),
               IconButton(
                 onPressed: () => setState(() {
-                  if (pages > currentPages + 1) currentPages = currentPages + 1;
+                  if (pages > currentPages + 1) currentPages += 1;
                 }),
                 icon: Icon(Icons.arrow_forward_ios),
               ),
@@ -97,63 +96,70 @@ class _ContactsState extends State<ContactsPage> {
               photo: profile.profile,
             ),
             SizedBox(width: 9),
-            Expanded(child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            Expanded(
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                   Text(
-                    '${contact.name ?? contact.name}'.toUpperCase(),
-                    style: TextStyle(fontWeight: FontWeight.bold,),
+                    '${profile.name ?? contact.name}'.toUpperCase(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Text('  ${profile.getBusinessCategory ?? contact.category}'),
                   if (!profile.businessLocation.isEmpty)
-                    Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Icon(Icons.location_on, size: 18, color: Colors.green),
-                      Expanded(
-                        child: Text(
-                          '${location.subLocality ?? ''} ${location.locality ?? ''} ${location.postalCode ?? ''}',
-                          style: TextStyle(color: Colors.green, fontSize: 12),
-                          softWrap: true,
-                        ),
-                      ),
-                    ]),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.location_on,
+                              size: 18, color: Colors.green),
+                          Expanded(
+                            child: Text(
+                              '${location.subLocality ?? ''} ${location.locality ?? ''} ${location.postalCode ?? ''}',
+                              style:
+                                  TextStyle(color: Colors.green, fontSize: 12),
+                              softWrap: true,
+                            ),
+                          ),
+                        ]),
                 ])),
             Column(children: [
               contact.referenceId == null
                   ? SizedBox.shrink()
                   : FutureBuilder(
-                future: db.offers
-                    .where('createdBy', isEqualTo: contact.referenceId)
-                    .get(),
-                builder: (_,
-                    AsyncSnapshot<QuerySnapshot<OfferModal>> snapshot) {
-                  var offerCount = snapshot.data?.size ?? 0;
-                  return offerCount == 0
-                      ? SizedBox.shrink()
-                      : Row(children: [
-                    Icon(Icons.local_offer,
-                        size: 12, color: Colors.pink),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(
-                        context,
-                        LIST_OFFER,
-                        arguments: snapshot.data,
-                      ),
-                      child: Text(
-                        '$offerCount Offer',
-                        style: TextStyle(
-                            fontSize: 10, color: Colors.red),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(6),
-                        minimumSize: Size.zero,
-                        tapTargetSize:
-                        MaterialTapTargetSize.shrinkWrap,
-                      ),
+                      future: db.offers
+                          .where('createdBy', isEqualTo: contact.referenceId)
+                          .get(),
+                      builder: (_,
+                          AsyncSnapshot<QuerySnapshot<OfferModal>> snapshot) {
+                        var offerCount = snapshot.data?.size ?? 0;
+                        return offerCount == 0
+                            ? SizedBox.shrink()
+                            : Row(children: [
+                                Icon(Icons.local_offer,
+                                    size: 12, color: Colors.pink),
+                                TextButton(
+                                  onPressed: () => Navigator.pushNamed(
+                                    context,
+                                    LIST_OFFER,
+                                    arguments: snapshot.data,
+                                  ),
+                                  child: Text(
+                                    '$offerCount Offer',
+                                    style: TextStyle(
+                                        fontSize: 10, color: Colors.red),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.all(6),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                ),
+                              ]);
+                      },
                     ),
-                  ]);
-                },
-              ),
               if (contact.isAdmin)
                 ElevatedButton(
                   onPressed: () {},

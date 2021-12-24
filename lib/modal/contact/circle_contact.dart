@@ -15,6 +15,12 @@ class ContactModal extends BaseModal {
 
   bool get isNotPrivate => !inActive.contains(category?.toLowerCase());
 
+  bool get isNotEmpty =>
+      (name?.isNotEmpty ?? false) &&
+      (category?.isNotEmpty ?? false) &&
+      (phoneNumber?.isNotEmpty ?? false) &&
+      (countryCode?.isNotEmpty ?? false);
+
   bool isDeletable(String? id) => reference == id;
 
   bool get isActive => profileModal.isActive;

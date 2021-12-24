@@ -17,8 +17,8 @@ class ContactRequestPage extends StatefulWidget {
 class _ContactRequestState extends State<ContactRequestPage> {
   late QueryDocumentSnapshot<CircleModal> snapshot;
 
-  ContactModal _modal = ContactModal();
-  CircleModal _circle = CircleModal();
+  var _modal = ContactModal();
+  var _circle = CircleModal();
 
   List<String> _labels = [
     'Add as a member',
@@ -38,16 +38,17 @@ class _ContactRequestState extends State<ContactRequestPage> {
       _circle = snapshot.data();
 
       if (_circle.isAllowVendor) _types.add('Vendor');
-
       if (_circle.isAllowEmergencies) _types.add('Emergencies');
 
       var profile = context.read<ProfileModal>();
       _modal.countryCode = profile.countryCode;
       _modal.phoneNumber = profile.phoneNumber;
+
       _modal.category = profile.getBusinessCategory;
       _modal.referenceId = profile.id;
-      _modal.reference = _circle.createdBy;
       _modal.name = profile.name;
+
+      _modal.reference = _circle.createdBy;
 
       setState(() => print('value'));
     });
@@ -56,7 +57,7 @@ class _ContactRequestState extends State<ContactRequestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Send Request')),
+      appBar: AppBar(title: Text('Send Request'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
         TextFormField(
           keyboardType: TextInputType.name,

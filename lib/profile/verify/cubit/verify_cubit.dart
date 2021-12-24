@@ -4,7 +4,6 @@ import 'package:circle/app/api/api_client.dart' as api;
 import 'package:circle/app/app.dart';
 import 'package:circle/modal/modal.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat/flutter_chat.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';

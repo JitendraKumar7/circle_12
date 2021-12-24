@@ -28,7 +28,7 @@ class _AddOfferState extends State<AddOfferPage> {
     var profile = context.read<ProfileModal>();
     var photo = _modal.photo;
     return Scaffold(
-      appBar: AppBar(title: Text('Add Offers')),
+      appBar: AppBar(title: Text('Add Offers'.toUpperCase())),
       body: ListView(padding: EdgeInsets.all(18), children: [
         ImagePickerWidget(
           photo:_modal.photo,

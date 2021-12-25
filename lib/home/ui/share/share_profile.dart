@@ -4,7 +4,6 @@ import 'package:circle/constant/constant.dart';
 import 'package:circle/modal/modal.dart';
 import 'package:circle/widget/widget.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -368,15 +367,15 @@ class ShareOnWhatsApp extends StatelessWidget {
                     ),
                     TextSpan(text: ' after that share on '),
                   ]),
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 15),
             ),
-            SizedBox(height: 60),
+            SizedBox(height: 30),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   IconButton(
-                    iconSize: 48,
+                    iconSize: 42,
                     onPressed: () => _onPressed(Package.whatsapp),
                     icon: FaIcon(
                       FontAwesomeIcons.whatsapp,
@@ -384,7 +383,7 @@ class ShareOnWhatsApp extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    iconSize: 42,
+                    iconSize: 36,
                     onPressed: () => _onPressed(Package.businessWhatsapp),
                     icon: Image.asset('assets/whatsapp_business.png'),
                   ),

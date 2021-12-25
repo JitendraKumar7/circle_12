@@ -243,10 +243,14 @@ class _ViewCircleState extends State<ViewCirclePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                   Text(
-                    '  ${contact.name ?? contact.name}'.toUpperCase(),
+                    '  ${profile.name ?? contact.name}'.toUpperCase(),
+                    maxLines: 1,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text('  ${profile.getBusinessCategory ?? contact.category}'),
+                  Text(
+                    '  ${profile.getBusinessCategory ?? contact.category}',
+                    maxLines: 1,
+                  ),
                   if (!profile.businessLocation.isEmpty)
                     Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

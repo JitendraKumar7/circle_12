@@ -52,10 +52,13 @@ class _AddContactState extends State<AddContactPage> {
       Contact _contact = await _contactPicker.selectContactWithNative();
 
       String code = _modal.countryCode ?? '+91';
-      var phoneNumber = _contact.phoneNumber?.replaceAll(code, '');
+      var phoneNumber = _contact.phoneNumber
+          ?.replaceAll(code, '')
+          .replaceAll(' ', '');
 
       _modal.name = _contact.fullName;
       _modal.phoneNumber = phoneNumber;
+
       setState(() => print('AddContactPage'));
     });
   }
@@ -240,7 +243,7 @@ class _AddContactState extends State<AddContactPage> {
 
               final tempDir = await getTemporaryDirectory();
               final file =
-                  await  File('${tempDir.path}/circle_contact_format.xlsx')
+                  await File('${tempDir.path}/circle_contact_format.xlsx')
                       .create();
               file.writeAsBytesSync(list);
 
